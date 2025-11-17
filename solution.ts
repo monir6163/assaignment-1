@@ -1,5 +1,5 @@
-type InputValue = string | number | boolean;
-function formatValue(input: InputValue): InputValue {
+type InputValueType = string | number | boolean;
+function formatValue(input: InputValueType): InputValueType {
   if (typeof input === "string") {
     return input.toUpperCase();
   } else if (typeof input === "number") {
@@ -28,7 +28,7 @@ class Person {
     (this.name = name), (this.age = age);
   }
   getDetails(): string {
-    return `Name: ${this.name}, Age: ${this.age}`;
+    return `'Name: ${this.name}, Age: ${this.age}'`;
   }
 }
 
@@ -58,9 +58,10 @@ interface Book {
 }
 
 function printBookDetails(book: Book): void {
-  const bookAvailable = book.isAvailable ? "Yes" : "No";
   console.log(
-    `Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${bookAvailable}`
+    `Title: ${book.title}, Author: ${book.author}, Published: ${
+      book.publishedYear
+    }, Available: ${book.isAvailable ? "Yes" : "No"}`
   );
 }
 

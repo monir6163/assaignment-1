@@ -74,9 +74,10 @@ const getUniqueValues = <T extends string | number>(
   let uniqueArr: T[] = [];
   let arr: T[] = [...arr1, ...arr2];
   const arrLength = arr.length;
+  const newArrLength = uniqueArr.length;
   for (let i = 0; i < arrLength; i++) {
     let isExist = false;
-    for (let j = 0; j < uniqueArr.length; j++) {
+    for (let j = 0; j < newArrLength; j++) {
       if (arr[i] === arr[j]) {
         isExist = true;
         break;

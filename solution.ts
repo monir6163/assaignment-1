@@ -17,7 +17,7 @@ function getLength(value: LengthType): number {
   } else if (Array.isArray(value)) {
     return value.length;
   } else {
-    return value;
+    return 0;
   }
 }
 
@@ -37,7 +37,9 @@ type Item = {
   rating: number;
 };
 function filterByRating(items: Item[]): Item[] {
-  return items.filter((item) => item.rating >= 4);
+  return items.filter(
+    (item) => item.rating >= 0 && item.rating >= 4 && item.rating <= 5
+  );
 }
 
 type User = {

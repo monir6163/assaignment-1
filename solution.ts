@@ -1,5 +1,5 @@
 type InputValue = string | number | boolean;
-function formatValue(input: InputValue) {
+function formatValue(input: InputValue): InputValue {
   if (typeof input === "string") {
     return input.toUpperCase();
   } else if (typeof input === "number") {
@@ -10,8 +10,8 @@ function formatValue(input: InputValue) {
     return input;
   }
 }
-
-function getLength(value: string | number[]): number {
+type LengthType = string | any[];
+function getLength(value: LengthType): number {
   if (typeof value === "string") {
     return value.length;
   } else if (Array.isArray(value)) {
@@ -27,7 +27,78 @@ class Person {
   constructor(name: string, age: number) {
     (this.name = name), (this.age = age);
   }
-  getDetails() {
+  getDetails(): string {
     return `Name: ${this.name}, Age: ${this.age}`;
   }
+}
+
+type Item = {
+  title: string;
+  rating: number;
+};
+function filterByRating(items: Item[]): Item[] {
+  return items.filter((item) => item.rating >= 4);
+}
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+};
+function filterActiveUsers(users: User[]): User[] {
+  return users.filter((user) => user.isActive === true);
+}
+
+interface Book {
+  title: string;
+  author: string;
+  publishedYear: number;
+  isAvailable: boolean;
+}
+
+function printBookDetails(book: Book): void {
+  const bookAvailable = book.isAvailable ? "Yes" : "No";
+  console.log(
+    `Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${bookAvailable}`
+  );
+}
+
+const getUniqueValues = <T extends string | number>(
+  arr1: T[],
+  arr2: T[]
+): T[] => {
+  let uniqueArr: T[] = [];
+  let arr: T[] = [...arr1, ...arr2];
+  const arrLength = arr.length;
+  for (let i = 0; i < arrLength; i++) {
+    let isExist = false;
+    for (let j = 0; j < uniqueArr.length; j++) {
+      if (arr[i] === arr[j]) {
+        isExist = true;
+        break;
+      }
+    }
+    if (!isExist) {
+      uniqueArr[uniqueArr.length] = arr[i];
+    }
+  }
+  return uniqueArr;
+};
+
+type Product = {
+  name: string;
+  price: number;
+  quantity: number;
+  discount?: number;
+};
+function calculateTotalPrice(products: Product[]): number {
+  const total = products.reduce((totalPrice, product) => {
+    const productsTotalPrice = product.price * product.quantity;
+    const productsDiscount = product.discount
+      ? (product.discount * productsTotalPrice) / 100
+      : 0;
+    return totalPrice + (productsTotalPrice - productsDiscount);
+  }, 0);
+  return total;
 }
